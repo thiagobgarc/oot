@@ -12,12 +12,14 @@ extern struct Scheduler gScheduler;
 extern struct PadMgr gPadMgr;
 extern struct IrqMgr gIrqMgr;
 
+// included in main.c
 #include "global.h"
 #include "fault.h"
 #include "segmented_address.h"
 #include "stack.h"
 #include "terminal.h"
 #include "versions.h"
+// if OOT is being run on N64 run these #includes
 #if PLATFORM_N64
 #include "cic6105.h"
 #include "n64dd.h"
@@ -28,11 +30,18 @@ extern struct IrqMgr gIrqMgr;
 
 extern u8 _buffersSegmentEnd[];
 
-s32 gScreenWidth = SCREEN_WIDTH;
-s32 gScreenHeight = SCREEN_HEIGHT;
-u32 gSystemHeapSize = 0;
+// defined in z64.h at 320 Width x 240 Height
+s32 gScreenWidth = SCREEN_WIDTH; // 320
+s32 gScreenHeight = SCREEN_HEIGHT; // 240
+u32 gSystemHeapSize = 0; // 0
 
+// defined in z64.h at typeof struct PreNmiBuff -- Line 384 to Line 389
+// gAppNmiBufferPtr is extern from struct PreNmiBuff in variables.h at Line 169 inside if statement
+// Tracks the reset state, count, duration and time.
 PreNmiBuff* gAppNmiBufferPtr;
+// Scheduler defined in sched.h as a typeof struct 
+// Manages tasks, interrupts, and graphics/audio processing, 
+// and appears to be part of a low-level system for handling graphics and audio rendering.
 Scheduler gScheduler;
 PadMgr gPadMgr;
 IrqMgr gIrqMgr;

@@ -70,7 +70,7 @@ def load_dmadata_segments(version: str) -> OrderedDict[str, SegmentInfo]:
 
 def load_version_config(version: str) -> VersionConfig:
     with open(PROJECT_ROOT / f"baseroms/{version}/config.yml", "r") as f:
-        config = yaml.load(f, Loader=yaml.Loader)
+        config = yaml.load(f, Loader=yaml.SafeLoader)
 
     incbins = []
     for incbin in config["incbins"]:

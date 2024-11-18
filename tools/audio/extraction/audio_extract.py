@@ -8,7 +8,6 @@ import os, shutil, time
 from dataclasses import dataclass
 from multiprocessing.pool import ThreadPool
 from typing import Dict, List, Tuple, Union
-from xml.etree import ElementTree
 from xml.etree.ElementTree import Element
 
 from .audio_tables import AudioCodeTable, AudioCodeTableEntry, AudioStorageMedium
@@ -16,6 +15,7 @@ from .audiotable import AudioTableData, AudioTableFile, AudioTableSample
 from .audiobank_file import AudiobankFile
 from .disassemble_sequence import CMD_SPEC, SequenceDisassembler, SequenceTableSpec, MMLVersion
 from .util import align, debugm, error, incbin, program_get, XMLWriter
+import defusedxml.ElementTree
 
 @dataclass
 class GameVersionInfo:
@@ -370,7 +370,7 @@ def extract_audio_for_version(version_info : GameVersionInfo, extracted_dir : st
             for root,_,files in os.walk(path):
                 for f in files:
                     fullpath = os.path.join(root, f)
-                    xml = ElementTree.parse(fullpath)
+                    xml = defusedxml.ElementTree.parse(fullpath)
                     xml_root = xml.getroot()
 
                     if xml_root.tag != typename or "Name" not in xml_root.attrib or "Index" not in xml_root.attrib:

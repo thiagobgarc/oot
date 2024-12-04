@@ -186,8 +186,6 @@ build = None
 def get_file_pointers_worker_init(version: str):
     global base
     global build
-    base = open(f"baseroms/{version}/baserom-decompressed.z64", "rb")
-    build = open(f"build/{version}/oot-{version}.z64", "rb")
 
 
 def get_file_pointers_worker(file: mapfile_parser.mapfile.File) -> list[Pointer]:

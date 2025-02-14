@@ -74,12 +74,12 @@ def list_chunks(list: List, chunk_length: int):
 
 def run_clang_format(files: List[str]):
     exec_str = f"{CLANG_FORMAT} {FORMAT_OPTS} {' '.join(files)}"
-    subprocess.run(exec_str, shell=True)
+    subprocess.run(exec_str, shell=False)
 
 
 def run_clang_tidy(files: List[str]):
     exec_str = f"{CLANG_TIDY} {TIDY_OPTS} {TIDY_FIX_OPTS} {' '.join(files)} -- {COMPILER_OPTS}"
-    subprocess.run(exec_str, shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    subprocess.run(exec_str, shell=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 
 def run_clang_tidy_with_export(tmp_dir: str, files: List[str]):
@@ -87,12 +87,12 @@ def run_clang_tidy_with_export(tmp_dir: str, files: List[str]):
     os.close(handle)
 
     exec_str = f"{CLANG_TIDY} {TIDY_OPTS} --export-fixes={tmp_file} {' '.join(files)} -- {COMPILER_OPTS}"
-    subprocess.run(exec_str, shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    subprocess.run(exec_str, shell=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 
 def run_clang_apply_replacements(tmp_dir: str):
     exec_str = f"{CLANG_APPLY_REPLACEMENTS} {APPLY_OPTS} {tmp_dir}"
-    subprocess.run(exec_str, shell=True)
+    subprocess.run(exec_str, shell=False)
 
 
 def cleanup_whitespace(file: str):

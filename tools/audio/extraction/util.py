@@ -84,10 +84,10 @@ def list_is_in_order(l):
     return all(l[i] <= l[i + 1] for i in range(len(l) - 1))
 
 def program_call(cmd):
-    subprocess.check_call(cmd, shell=True)
+    subprocess.check_call(cmd, shell=False)
 
 def program_get(cmd):
-    return subprocess.check_output(cmd, shell=True).decode("ascii")
+    return subprocess.check_output(cmd, shell=False).decode("ascii")
 
 class XMLWriter:
     """
